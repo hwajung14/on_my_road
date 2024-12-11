@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nintendo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-image: url("img/nintendo.svg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .view {
+            background-image: url("img/ninbg.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            width: 870px;
+            height: 520px;
+            margin-top: 5.5%;
+            margin-left: 0.7%;
+            border-radius: 9px;
+            position: relative;
+            overflow: hidden;
+        }
+        .me, .npc {
+            position: absolute;
+            width: 100px;
+        }
+        .me {
+            top: 0;
+            left: 0;
+        }
+        .npc {
+            top: 200px;
+            left: 400px;
+        }
+        .popup {
+            position: absolute;
+            top: 80%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+        .box{
+            position: absolute;
+            top: 0;
+            left: calc(50% - 35px);
+            width: 133.5px;
+            height: 133.5px;
+            background: url("img/me.png") no-repeat;
+        }
+        .box[data-direction='right'] {
+
+            background-position: 0-133.5px;
+
+        }
+        .box[data-direction='left'] {
+
+            background-position: 0-400.5px;
+
+        }
+        .box[data-direction='up'] {
+
+            background-position: 0-267px;
+
+        }
+        .box[data-walking='true'] {
+            animation: walking 0.6s steps(4) infinite;
+        }
+        @keyframes walking {
+            from {
+                background-position-x:0;
+            }
+            to {
+                background-position-x:-534px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="view">
+    <div id="movable-image" class="box me" data-direction="down" data-walking="false"></div>
+
+    <!--    <img src="./img/me.png" class="me" id="movable-image">-->
+    <img src="./img/npc.png" class="npc" id="npc-image">
+    <img src="./img/popup.png" class="popup" id="popup-image">
+</div>
+
+<script>
+    const img = document.getElementById('movable-image');
+    const npc = document.getElementById('npc-image');
+    const popup = document.getElementById('popup-image');
+    const view = document.querySelector('.view');
+
+    let posX = 0;
+    let posY = 0;
+
+    document.addEventListener('keydown', (event) => {
+        const step = 10;
+
+        switch (event.key) {
+            case 'ArrowUp':
+                if (posY > 0) posY -= step;
+                break;
+            case 'ArrowDown':
+                if (posY < view.offsetHeight - img.offsetHeight) posY += step;
+                break;
+            case 'ArrowLeft':
+                if (posX > 0) posX -= step;
+                break;
+            case 'ArrowRight':
+                if (posX < view.offsetWidth - img.offsetWidth) posX += step;
+                break;
+        }
+
+        img.style.left = `${posX}px`;
+        img.style.top = `${posY}px`;
+
+        checkCollision();
+    });
+
+    function checkCollision() {
+        const imgRect = img.getBoundingClientRect();
+        const npcRect = npc.getBoundingClientRect();
+
+        if (
+            imgRect.left < npcRect.right &&
+            imgRect.right > npcRect.left &&
+            imgRect.top < npcRect.bottom &&
+            imgRect.bottom > npcRect.top
+        ) {
+            showPopup();
+        }
+    }
+
+    function showPopup() {
+        popup.style.display = 'block';
+        setTimeout(() => {
+            popup.style.display = 'none';
+        }, 10000);
+    }
+
+    let box = document.querySelector('.box');
+
+    document.addEventListener('keydown', (e) =>{
+
+        let currentDirection = 'down'
+
+        if(e.key === 'ArrowLeft') {
+            currentDirection = 'left'
+        }else if(e.key === 'ArrowRight'){
+            currentDirection = 'right'
+        }else if(e.key === 'ArrowUp'){
+            currentDirection = 'up'
+        }else if(e.key === 'ArrowDown'){
+            currentDirection = 'down'
+        }
+
+        box.dataset.direction = currentDirection;
+        box.dataset.walking = 'true';
+
+
+    })
+
+    document.addEventListener('keyup', () => {
+
+        box.dataset.walking = 'false';
+
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sweet</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            /*align-items: center;*/
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(rgba(242, 225, 177), rgba(255, 255, 255),rgba(180, 234, 215));
+        }
+        .box-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .sp {
+            width: 600px;
+            height: 650px;
+            background: url(img/sp.png);
+            background-position: 0 0;
+        }
+
+        .home{
+            float: none;
+            position: fixed;
+            left: 2%;
+            top: 2%;
+            margin: 0;
+        }
+        .next {
+            float: none;
+            position: fixed;
+            right: 2%;
+            bottom: 2%;
+            margin: 0;
+        }
+
+        a img:hover {
+            transform: scale(1.25);
+        }
+    </style>
+</head>
+<body>
+<div class="home"><a href="index.html"><img src="img/home.png"></a></div>
+<div class="box-container">
+    <div class="sp"></div>
+</div>
+<div class="next"><a href="kid.html"><img src="img/next.png"></a></div>
+
+
+<script>
+
+    const sp = document.querySelector('.sp');
+    const totalSteps = 5;
+    const stepWidth = 600;
+
+    let currentStep = 0;
+
+    sp.addEventListener('click', () => {
+        currentStep = (currentStep + 1) % totalSteps;
+        sp.style.backgroundPosition = `-${currentStep * stepWidth}px 0`;
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Snow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+            height: 100vh;
+            background-image: url("img/snow.svg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .snow {
+            position: absolute;
+            bottom: 100%;
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(#FFFFFF, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: snowy linear;
+        }
+        @keyframes snowy {
+            100% { transform: translateY(100vh); }
+        }
+        .amount{
+            float: right;
+            margin-top: 2%;
+            margin-right: 2%;
+        }
+        input[type=range]{
+            -webkit-appearance: none;
+            background-color: #E3E2E2;
+            width: 20%;
+            height: 10px;
+            border-radius: 10px
+        }
+        input[type=range]::-webkit-slider-thumb{
+            -webkit-appearance: none;
+            background-color: #AFE9D7;
+            width: 20px;
+            height: 20px;
+            border-radius: 10px
+        }
+        .home{
+            position: absolute;
+            margin-top: 2%;
+            margin-left: 2%;
+        }
+        .next {
+            float: none;
+            position: fixed;
+            right: 2%;
+            bottom: 2%;
+            margin: 0;
+        }
+
+        a img:hover {
+            transform: scale(1.25);
+        }
+    </style>
+</head>
+<body>
+<div class="home"><a href="index.html"><img src="img/home.png"></a></div>
+<input class="amount" type="range" min="1" max="50" value="25" step="1" id="snowRange">
+<div class="next"><a href="kid.html"><img src="img/next.png"></a></div>
+
+<script>
+    const snowContainer = document.body;
+    const snowRange = document.getElementById('snowRange');
+
+    function createSnowflake() {
+        const snowflake = document.createElement('div');
+        snowflake.classList.add('snow');
+
+        const size = Math.random() * 10 + 10;
+        snowflake.style.width = `${size}px`;
+        snowflake.style.height = `${size}px`;
+
+        snowflake.style.left = `${Math.random() * 100}vw`;
+
+        const duration = Math.random() * 3 + 2;
+        snowflake.style.animationDuration = `${duration}s`;
+
+        snowContainer.appendChild(snowflake);
+
+
+        snowflake.addEventListener('animationend', () => {
+            snowflake.remove();
+        });
+    }
+
+    function generateSnowflakes() {
+        const count = snowRange.value;
+        for (let i = 0; i < count; i++) {
+            createSnowflake();
+        }
+    }
+
+    setInterval(generateSnowflakes, 500);
+
+    snowRange.addEventListener('input', () => {
+        generateSnowflakes();
+    });
+
+</script>
+
+</body>
+</html>
