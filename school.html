@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>School uniform</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            background-image: url("img/model.svg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .dropzone {
+            width: 385.63px;
+            height: 272.17px;
+            border: 2px dashed #8B4513;
+            position: relative;
+            margin-top: 310px;
+        }
+        .dropzone2 {
+            width: 229.08px;
+            height: 177.07px;
+            border: 2px dashed #8B4513;
+            position: relative;
+            margin-top: -2px;
+        }
+        .dropzone3 {
+            width: 202.66px;
+            height: 77px;
+            border: 2px dashed #8B4513;
+            position: relative;
+            margin-top: 10px;
+        }
+        img {
+            height: auto;
+            cursor: grab;
+            position: absolute;
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <div class="dropzone" ondrop="drop(event)" ondragover="dragEnter(event)"></div>
+    <div class="dropzone2" ondrop="drop(event)" ondragover="dragEnter(event)"></div>
+    <div class="dropzone3" ondrop="drop(event)" ondragover="dragEnter(event)"></div>
+</div>
+
+    <div>
+        <div>
+            <img id="image1" src="img/top1.png" draggable="true" ondragstart="drag(event)">
+            <img id="image2" src="img/top2.png" draggable="true" ondragstart="drag(event)">
+            <img id="image3" src="img/top3.png" draggable="true" ondragstart="drag(event)">
+        </div>
+    </div>
+
+
+
+<script>
+    function dragEnter(event) {
+        event.preventDefault();
+    }
+
+    function drag(event) {
+        event.dataTransfer.setData("text", event.target.id);
+    }
+
+    function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        ev.target.appendChild(document.getElementById(data));
+    }
+
+</script>
+
+</body>
+</html>

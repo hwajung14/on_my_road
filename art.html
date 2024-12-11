@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Art</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+        body {
+            background-color: #8E8872;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            padding: 50px;
+            background-image: url("img/art.svg");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        ol, ul {
+            list-style: none;
+        }
+        blockquote, q {
+            quotes: none;
+        }
+        blockquote:before, blockquote:after,
+        q:before, q:after {
+            content: '';
+            content: none;
+        }
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        .canvas{
+            width: 1000px;
+            height: 630px;
+            background-color: #FFFFFF;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.068);
+        }
+        .controls {
+            display: flex;
+        }
+        .controls_btns{
+            margin-left: 80px;
+            margin-top: 20px;
+        }
+        .controls_btns button{
+            all: unset;
+            cursor: pointer;
+            background-color: #FFFFFF;
+            padding: 5px 0px;
+            width: 80px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.068);
+        }
+        .controls_btns button:active{
+            transform: scale(0.98);
+        }
+        .controls_colors{
+            width: 130px;
+            height: 630px;
+            margin-left: 20px;
+            padding-left: 170px;
+            background-color: #fafafa;
+            border-radius: 10px;
+            border: 4px solid #dadada;
+        }
+        .controls_color{
+            width: 130px;
+            height: 70px;
+            box-shadow: 0 2px 3px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.068);
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        #jsMode{
+            width: 130px;
+            height: 70px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="jsCanvas" class="canvas"></canvas>
+        <div class="controls">
+
+            <div class="controls_colors" id="jsColors">
+                <div class="controls_color jsColor" style="background-color: black;"></div>
+                <div class="controls_color jsColor" style="background-color: white;"></div>
+                <div class="controls_color jsColor" style="background-color: red;"></div>
+                <div class="controls_color jsColor" style="background-color: orange;"></div>
+                <div class="controls_color jsColor" style="background-color: yellow;"></div>
+                <div class="controls_color jsColor" style="background-color: green;"></div>
+                <div class="controls_color jsColor" style="background-color: blue;"></div>
+                <div class="controls_color jsColor" style="background-color: navy;"></div>
+                <div class="controls_color jsColor" style="background-color: purple;"></div>
+            </div>
+
+            <div class="controls_btns">
+                <div class="controls_range">
+                    <input type="range" id="jsRange" min="0.1" max="5.0" value="2.5" step="0.1">
+                </div>
+                <button id="jsMode">Fill</button>
+            </div>
+        </div>
+    <script src="art.js"></script>
+</body>
+</html>
